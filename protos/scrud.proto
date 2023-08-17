@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+option go_package = "markplatts.org/grpc/scrud";
+
+package scrud;
+
+// The SCRUD service
+service Scrud {
+  // Create a message
+  rpc Create (CreateRequest) returns (CreateReply) {}
+  // Read a message
+  rpc Read (ReadRequest) returns (ReadReply) {}
+  // Update a message
+  rpc Update (UpdateRequest) returns (UpdateReply) {}
+  // Delete a message
+  rpc Delete (DeleteRequest) returns (DeleteReply) {}
+  // Send a message
+  rpc Send (SendRequest) returns (SendReply) {}
+  // Send all messages
+  rpc SendAll (SendAllRequest) returns (stream SendAllReply) {}
+}
+
+message CreateRequest {
+  string message = 1;
+}
+
+message CreateReply {
+  string id = 1;
+}
+
+message ReadRequest {
+  string id = 1;
+}
+
+message ReadReply {
+  string id = 1;
+  string timeStamp = 2;
+  string message = 3;
+}
+
+message UpdateRequest {
+  string id = 1;
+  string message = 2;
+}
+
+message UpdateReply {}
+
+message DeleteRequest {
+  string id = 1;
+}
+
+message DeleteReply {}
+
+message SendRequest {
+  string id = 1;
+}
+
+message SendReply {}
+
+message SendAllRequest {}
+
+message SendAllReply {}
