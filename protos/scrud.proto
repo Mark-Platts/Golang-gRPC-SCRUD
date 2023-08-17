@@ -1,5 +1,6 @@
 syntax = "proto3";
 
+import "google/protobuf/timestamp.proto";
 option go_package = "markplatts.org/scrud";
 
 package scrud;
@@ -34,7 +35,7 @@ message ReadRequest {
 
 message ReadReply {
   string id = 1;
-  string timeStamp = 2;
+  google.protobuf.Timestamp timeCreated = 2;
   string message = 3;
 }
 
