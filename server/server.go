@@ -32,6 +32,7 @@ func (s *ScrudServer) Create(ctx context.Context, req *pb.CreateRequest) (*pb.Cr
 func (s *ScrudServer) Read(ctx context.Context, req *pb.ReadRequest) (*pb.ReadReply, error) {
 	log.Printf("Create RPC called with request: %v", req)
 
+	//use the service request's id to retrieve the stored message from the storage layer
 	ms, err := storage.StorageMechanism.Retrieve(req.GetId())
 	if err != nil {
 		return nil, err

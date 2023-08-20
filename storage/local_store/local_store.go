@@ -3,6 +3,8 @@ package local_store
 import (
 	"github.com/google/uuid"
 	"markplatts.org/scrud/models"
+	"google.golang.org/grpc/status"
+    "google.golang.org/grpc/codes"
 )
 
 type LocalStore struct{
@@ -26,6 +28,9 @@ func (ls *LocalStore) Insert(m *models.MessageStore) (string, error) {
 }
 
 func (ls *LocalStore) Retrieve(id string) (*models.MessageStore, error) {
-	ms := ls.messageList[id]
-	return &ms, nil
+	ms, ok := ls.messageList[id]
+	if ok {
+		return &ms, nil
+	}
+	return nil, status.Errorf(codes.NotFound, "No message found for provided id.")
 }
