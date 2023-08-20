@@ -11,10 +11,11 @@ import (
 )
 
 const (
-	port = 49000
+	port = 50000
 )
 
 func main() {
+	//Set and run the server
 	lis, err := net.Listen("tcp", fmt.Sprintf("localhost:%d", port))
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
@@ -24,7 +25,6 @@ func main() {
 	pb.RegisterScrudServer(grpcServer, &server.ScrudServer{})
 	log.Printf("Server listening on port: %v", port)
 	if err = grpcServer.Serve(lis); err != nil {
-		log.Fatal("failed to serve: %v", err)
+		log.Fatalf("failed to serve: %v", err)
 	}
-
 }
