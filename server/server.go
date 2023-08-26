@@ -43,11 +43,24 @@ func (s *ScrudServer) Read(ctx context.Context, req *pb.ReadRequest) (*pb.ReadRe
 
 func (s *ScrudServer) Update(ctx context.Context, req *pb.UpdateRequest) (*pb.UpdateReply, error) {
 	log.Printf("Update RPC called with request: %v", req)
+
+	ms := models.NewMessageStore(req.GetMessage())
+	err := storage.StorageMechanism.Update(req.GetId(), ms)
+	if err != nil {
+		return nil, err
+	}
+
 	return &pb.UpdateReply{}, nil
 }
 
 func (s *ScrudServer) Delete(ctx context.Context, req *pb.DeleteRequest) (*pb.DeleteReply, error) {
 	log.Printf("Delete RPC called with request: %v", req)
+
+	err := storage.StorageMechanism.Delete(req.GetId())
+	if err != nil {
+		return nil, err
+	}
+
 	return &pb.DeleteReply{}, nil
 }
 

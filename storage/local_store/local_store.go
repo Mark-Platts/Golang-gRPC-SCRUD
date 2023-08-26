@@ -34,3 +34,25 @@ func (ls *LocalStore) Retrieve(id string) (*models.MessageStore, error) {
 	}
 	return nil, status.Errorf(codes.NotFound, "No message found for provided id.")
 }
+
+func (ls *LocalStore) Update(id string, m *models.MessageStore) error {
+	_, ok := ls.messageList[id]
+	if ok {
+		ls.messageList[id] = *m
+		return nil
+	}
+	return status.Errorf(codes.NotFound, "No message found for provided id.")
+}
+
+func (ls *LocalStore) Delete(id string) error {
+	_, ok := ls.messageList[id]
+	if ok {
+		delete(ls.messageList, id)
+		return nil
+	}
+	return status.Errorf(codes.NotFound, "No message found for provided id.")
+}
+
+// func (ls *LocalStore) List() ([]*models.MessageStore, error) {
+
+// }
